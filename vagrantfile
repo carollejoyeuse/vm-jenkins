@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # load de centos7 box from vagrant cloud
+  config.vm.define "jenkins" do  |jenkins|
+    jenkins.vm.box = "geerlingguy/centos7"
+    jenkins.vm.network "private_network", ip: "192.168.56.16"
+    jenkins.vm.hostname ="jenkins"
+    jenkins.vm.provider "virtualbox" do |v|
+        v.name = "jenkins"
+        v.memory = 1024
+        v.cpus = 2
+    end
+    docker.vm.provision :shell, :path => "jenkins.sh"
+    
+  end
+  end
